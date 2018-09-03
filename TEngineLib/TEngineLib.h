@@ -15,12 +15,13 @@ namespace TEngine
 	{
 	public:
 		virtual ~IEngine() {}
+		virtual void Run() = 0;
 	};
 
 	class TEngineFactory
 	{
 	public:
-		static IEngine* GetEngine(int iWidth, int iHeight, const wstring& wTitle, RenderSystem eRenderSubSystem);
+		static IEngine* GetEngine(int iWidth, int iHeight, const string& wTitle, RenderSystem eRenderSubSystem);
 		static void ReleaseEngine(IEngine* pEngine);
 
 	};
