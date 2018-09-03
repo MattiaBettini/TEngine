@@ -2,6 +2,7 @@
 #pragma once
 
 #include "TEngineLib.h"
+#include "EngineException.h"
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <GL/GL.h>

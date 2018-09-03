@@ -7,15 +7,13 @@ Engine::Engine(int iWidth, int iHeight, const string& sTitle, TEngine::RenderSys
 {
 	
 	if (!glfwInit())
-		//return -1;
-		//todo throw exception
+		throw glfwInitException();
 
 	m_pWindow = glfwCreateWindow(iWidth, iHeight, sTitle.c_str(), NULL, NULL);
 	if (!m_pWindow)
 	{
 		glfwTerminate();
-		//return -1;
-		//todo throw exception
+		throw glfwCreateWindowException();
 	}
 
 	glfwMakeContextCurrent(m_pWindow);
