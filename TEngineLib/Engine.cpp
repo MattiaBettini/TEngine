@@ -3,8 +3,9 @@
 
 
 
-Engine::Engine()
+Engine::Engine(int iWidth, int iHeight, const wstring& wTitle, RenderSystem eSystem)
 {
+
 }
 
 
