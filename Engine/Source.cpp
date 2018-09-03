@@ -4,9 +4,7 @@
 #include "AL/al.h"
 
 #include <cstdio>
-
-//override linker settings to hide console if necessary
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 using namespace std;
 
