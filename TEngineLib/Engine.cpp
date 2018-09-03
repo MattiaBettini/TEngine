@@ -3,7 +3,7 @@
 
 
 
-Engine::Engine(int iWidth, int iHeight, const wstring& wTitle, RenderSystem eSystem)
+Engine::Engine(int iWidth, int iHeight, const wstring& wTitle, TEngine::RenderSystem eSystem)
 {
 
 }

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{0F22599D-2FF8-4441-84F9-F17C5672CC79}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEngineLib", "TEngineLib\TEngineLib.vcxproj", "{86F42D83-ED31-41C5-99DA-5EC77636D639}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEngineTest", "TEngineTest\TEngineTest.vcxproj", "{E488DA7F-FC85-467B-B246-6B521869CF31}"
@@ -17,14 +15,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0F22599D-2FF8-4441-84F9-F17C5672CC79}.Debug|x64.ActiveCfg = Debug|x64
-		{0F22599D-2FF8-4441-84F9-F17C5672CC79}.Debug|x64.Build.0 = Debug|x64
-		{0F22599D-2FF8-4441-84F9-F17C5672CC79}.Debug|x86.ActiveCfg = Debug|Win32
-		{0F22599D-2FF8-4441-84F9-F17C5672CC79}.Debug|x86.Build.0 = Debug|Win32
-		{0F22599D-2FF8-4441-84F9-F17C5672CC79}.Release|x64.ActiveCfg = Release|x64
-		{0F22599D-2FF8-4441-84F9-F17C5672CC79}.Release|x64.Build.0 = Release|x64
-		{0F22599D-2FF8-4441-84F9-F17C5672CC79}.Release|x86.ActiveCfg = Release|Win32
-		{0F22599D-2FF8-4441-84F9-F17C5672CC79}.Release|x86.Build.0 = Release|Win32
 		{86F42D83-ED31-41C5-99DA-5EC77636D639}.Debug|x64.ActiveCfg = Debug|x64
 		{86F42D83-ED31-41C5-99DA-5EC77636D639}.Debug|x64.Build.0 = Debug|x64
 		{86F42D83-ED31-41C5-99DA-5EC77636D639}.Debug|x86.ActiveCfg = Debug|Win32

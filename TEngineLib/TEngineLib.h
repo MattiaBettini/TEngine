@@ -3,24 +3,25 @@
 
 using namespace std;
 
-
-enum RenderSystem
+namespace TEngine
 {
-	OpenGl = 1,
-	Vulkan = 2
-};
+	enum RenderSystem
+	{
+		OpenGl = 1,
+		Vulkan = 2
+	};
 
-class IEngine
-{
-public:
-	virtual ~IEngine() {}
-};
+	class IEngine
+	{
+	public:
+		virtual ~IEngine() {}
+	};
 
-class TEngineFactory
-{
-public:
-	static IEngine* GetEngine(int iWidth, int iHeight, const wstring& wTitle, RenderSystem eRenderSubSystem);
-	static void ReleaseEngine(IEngine* pEngine);
+	class TEngineFactory
+	{
+	public:
+		static IEngine* GetEngine(int iWidth, int iHeight, const wstring& wTitle, RenderSystem eRenderSubSystem);
+		static void ReleaseEngine(IEngine* pEngine);
 
-};
-
+	};
+}
