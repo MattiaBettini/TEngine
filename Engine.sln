@@ -7,8 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEngineLib", "TEngineLib\TE
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEngineTest", "TEngineTest\TEngineTest.vcxproj", "{E488DA7F-FC85-467B-B246-6B521869CF31}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEngine", "TEngine\TEngine.vcxproj", "{3A16751D-04BF-4587-BEE4-3085A8559D9A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,10 +21,6 @@ Global
 		{E488DA7F-FC85-467B-B246-6B521869CF31}.Debug|x64.Build.0 = Debug|x64
 		{E488DA7F-FC85-467B-B246-6B521869CF31}.Release|x64.ActiveCfg = Release|x64
 		{E488DA7F-FC85-467B-B246-6B521869CF31}.Release|x64.Build.0 = Release|x64
-		{3A16751D-04BF-4587-BEE4-3085A8559D9A}.Debug|x64.ActiveCfg = Debug|x64
-		{3A16751D-04BF-4587-BEE4-3085A8559D9A}.Debug|x64.Build.0 = Debug|x64
-		{3A16751D-04BF-4587-BEE4-3085A8559D9A}.Release|x64.ActiveCfg = Release|x64
-		{3A16751D-04BF-4587-BEE4-3085A8559D9A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
