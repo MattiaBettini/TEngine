@@ -11,4 +11,4 @@ using namespace std;
 	#define TEngineAPI _declspec(dllimport)
 #endif
 
-string TEngineAPI GetTestString();
+extern "C" string TEngineAPI GetTestString();
