@@ -30,6 +30,8 @@ namespace TEngine
 
 	class TEngineAPI TEngineFactory
 	{
+		friend class Engine;
+
 	public:
 		static IEngine* GetEngine(int iWidth, int iHeight, const string& wTitle, RenderSystem eRenderSubSystem);
 		static void ReleaseEngine(IEngine* pEngine);
