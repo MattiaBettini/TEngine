@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <atomic>
+#include <queue>
 
 using namespace std;
 
@@ -62,4 +64,5 @@ namespace TEngine
 	private:
 		static IEngine* m_pEngineInstance;
 	};
+
 }
