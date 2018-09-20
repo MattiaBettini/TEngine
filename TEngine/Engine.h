@@ -5,6 +5,9 @@
 #include "GLFW/glfw3.h"
 #include <GL/GL.h>
 #include "EngineException.h"
+#include "AutoResetEvent.h"
+
+class Scene;
 
 class Engine final : public TEngine::IEngine
 {
@@ -20,15 +23,22 @@ public:
 private:
 	virtual ~Engine();
 	void RenderingInternalRoutine();
+	void UpdateInternalRoutine();
 
 	thread m_vRendererThread;
+	thread m_vUpdateThread;
 	GLFWwindow* m_pWindow;
 	static void OnWindowClosing(GLFWwindow* pWindow);
 	int m_iWidth;
 	int m_iHeight;
 	string m_sTitle;
+	Scene* m_pCurrentScene;
+
+	AutoResetEvent m_vUpdateStart;
+	AutoResetEvent m_vUpdateComplete;
 
 	// Inherited via IEngine
 	virtual TEngine::IScene * CreateScene() override;
 	virtual void Destroy(TEngine::IScene * pScene) override;
+
 };

@@ -8,6 +8,7 @@ Engine::Engine(int iWidth, int iHeight, const string& sTitle, TEngine::RenderSys
 	m_iWidth = iWidth;
 	m_iHeight = iHeight;
 	m_sTitle = sTitle;
+	m_pCurrentScene = new Scene(); //TODO: getter - setter - ciclo di vita
 }
 
 Engine::~Engine()
@@ -19,6 +20,8 @@ void Engine::Run()
 {
 	thread t2(&Engine::RenderingInternalRoutine, this);
 	m_vRendererThread.swap(t2);
+	thread t3(&Engine::UpdateInternalRoutine, this);
+	m_vUpdateThread.swap(t3);
 	
 }
 
@@ -50,6 +53,8 @@ void Engine::RenderingInternalRoutine()
 	{
 		try// per ora usiamo un produttore-consumatore
 		{
+			cout << "--------Start New Frame--------" << endl;
+			
 			/* Render here */
 			glClear(GL_COLOR_BUFFER_BIT);
 
@@ -58,6 +63,12 @@ void Engine::RenderingInternalRoutine()
 
 			/* Poll for and process events */
 			glfwPollEvents();
+			//signal to update thread to start
+			m_vUpdateStart.Set();
+			//glFlush();
+			cout << "rendering" << endl;
+			//wait for update complete
+			m_vUpdateComplete.WaitOne();
 		}
 		catch (const std::exception& exc)
 		{
@@ -68,6 +79,27 @@ void Engine::RenderingInternalRoutine()
 
 	glfwTerminate(); //da chiamare alla chiusura della finestra
 }
+
+void Engine::UpdateInternalRoutine()
+{
+	
+	//quando chiudiamo l' applicazione dobbiamo prima terminare il thread di rendering e poi quello di update
+	while (m_pCurrentScene)
+	{
+		m_vUpdateStart.WaitOne();
+
+		cout << "updating" << endl;
+		m_pCurrentScene->DeferredRemoveEntities();
+		m_pCurrentScene->DeferredAddEntities();
+		//Time::Update();
+		m_pCurrentScene->PreUpdate();
+		m_pCurrentScene->Update();
+		m_pCurrentScene->PostUpdate();
+
+		m_vUpdateComplete.Set();
+	}
+}
+
 
 int Engine::GetWidth()
 {
@@ -104,3 +136,4 @@ void Engine::Destroy(TEngine::IScene * pScene)
 {
 	delete pScene;
 }
+

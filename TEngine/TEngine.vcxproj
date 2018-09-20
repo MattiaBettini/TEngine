@@ -171,6 +171,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AutoResetEvent.h" />
     <ClInclude Include="ConcurrentQueue.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineException.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="TEngine.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AutoResetEvent.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EngineException.cpp" />
