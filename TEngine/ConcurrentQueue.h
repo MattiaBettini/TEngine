@@ -1,7 +1,8 @@
 #pragma once
+#include "SpinLock.h"
 
 template<typename T>
-class ConcurrentQueue : private SpinLock
+class ConcurrentQueue final : private SpinLock
 {
 public:
 	ConcurrentQueue() {};

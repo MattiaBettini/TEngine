@@ -48,10 +48,10 @@
     <ClInclude Include="AutoResetEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Debug.h">
+    <ClInclude Include="Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
+    <ClInclude Include="EntityBox2d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,10 +83,10 @@
     <ClCompile Include="AutoResetEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Debug.cpp">
+    <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
+    <ClCompile Include="EntityBox2d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

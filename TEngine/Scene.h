@@ -22,6 +22,7 @@ public:
 	void ParallelPreUpdate();
 	void ParallelUpdate();
 	void ParallelPostUpdate();
+	void Render();
 
 private:
 	//creazione distruzione deferred (Deferred Execution)

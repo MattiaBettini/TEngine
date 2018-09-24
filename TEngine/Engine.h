@@ -8,6 +8,7 @@
 #include "AutoResetEvent.h"
 
 class Scene;
+class Logger;
 
 class Engine final : public TEngine::IEngine
 {
@@ -40,6 +41,8 @@ private:
 	double m_dDeltaTime;
 	double m_dLastFrame;
 
+	unique_ptr<Logger> m_pLogger;
+
 	AutoResetEvent m_vUpdateStart;
 	AutoResetEvent m_vUpdateComplete;
 
@@ -47,6 +50,7 @@ private:
 	virtual TEngine::IScene * CreateScene() override;
 	virtual void Destroy(TEngine::IScene * pScene) override;
 
-	virtual float GetDeltaTime() override;
+	virtual double GetDeltaTime() override;
+	virtual void Log(const string& message) override;
 
 };

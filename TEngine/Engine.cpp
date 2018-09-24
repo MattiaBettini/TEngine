@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Engine.h"
 #include "Scene.h"
+#include "Logger.h"
 
 
 Engine::Engine(int iWidth, int iHeight, const string& sTitle, TEngine::RenderSystem eSystem)
@@ -9,6 +10,7 @@ Engine::Engine(int iWidth, int iHeight, const string& sTitle, TEngine::RenderSys
 	m_iHeight = iHeight;
 	m_sTitle = sTitle;
 	m_pCurrentScene = new Scene(); //TODO: getter - setter - ciclo di vita
+	m_pLogger = make_unique<Logger>();
 }
 
 Engine::~Engine()
@@ -53,24 +55,36 @@ void Engine::RenderingInternalRoutine()
 	{
 		try// per ora usiamo un produttore-consumatore
 		{
-			Debug::Log("--------Start New Frame--------");
+			Log("--------Start New Frame--------");
 			
+			//signal to update thread to start
+			m_vUpdateStart.Set();
+
 			/* Render here */
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			//glFlush();
+			Log("rendering");
+			m_pCurrentScene->Render();
+
+			glBegin(GL_QUADS);           // Each set of 4 vertices form a quad
+			glColor3f(1.0f, 0.0f, 0.0f); // Red
+			glVertex2f(-0.5f, -0.5f);    // x, y
+			glVertex2f(0.5f, -0.5f);
+			glVertex2f(0.5f, 0.5f);
+			glVertex2f(-0.5f, 0.5f);
+			glEnd();
 
 			/* Swap front and back buffers */
 			glfwSwapBuffers(m_pWindow);
 
-			/* Poll for and process events */
-			glfwPollEvents();
-			//signal to update thread to start
-			m_vUpdateStart.Set();
-			//glFlush();
-			Debug::Log("rendering");
 			//wait for update complete
 			m_vUpdateComplete.WaitOne();
 
-			UpdateDeltaTime();
+			/* Poll for and process events */
+			glfwPollEvents();
+
+			//UpdateDeltaTime();
 		}
 		catch (const std::exception& exc)
 		{
@@ -149,5 +163,10 @@ void Engine::UpdateDeltaTime()
 	m_dCurrentFrame = glfwGetTime();
 	m_dDeltaTime = m_dCurrentFrame - m_dLastFrame;
 	m_dLastFrame = m_dCurrentFrame;
+}
+
+void Engine::Log(const string& message)
+{
+	m_pLogger->Log(message);
 }
 

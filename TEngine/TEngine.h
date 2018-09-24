@@ -52,6 +52,7 @@ namespace TEngine
 		virtual int GetHeight() = 0;
 		virtual string GetTitle() = 0;
 		virtual double GetDeltaTime() = 0;
+		virtual void Log(const string& message) = 0;
 	};
 
 	class TEngineAPI TEngineFactory

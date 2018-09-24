@@ -82,3 +82,8 @@ void Scene::ParallelPostUpdate()
 {
 
 }
+
+void Scene::Render()
+{
+
+}
