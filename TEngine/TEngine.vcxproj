@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="AutoResetEvent.h" />
     <ClInclude Include="ConcurrentQueue.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineException.h" />
     <ClInclude Include="Entity.h" />
@@ -181,9 +182,11 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TEngine.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AutoResetEvent.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EngineException.cpp" />
@@ -197,6 +200,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TEngine.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
