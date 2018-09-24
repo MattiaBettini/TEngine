@@ -51,6 +51,7 @@ namespace TEngine
 		virtual int GetWidth() = 0;
 		virtual int GetHeight() = 0;
 		virtual string GetTitle() = 0;
+		virtual double GetDeltaTime() = 0;
 	};
 
 	class TEngineAPI TEngineFactory

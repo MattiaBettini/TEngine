@@ -19,11 +19,13 @@ public:
 	virtual int GetWidth() override;
 	virtual int GetHeight() override;
 	virtual string GetTitle() override;
+	
 
 private:
 	virtual ~Engine();
 	void RenderingInternalRoutine();
 	void UpdateInternalRoutine();
+	void UpdateDeltaTime();
 
 	thread m_vRendererThread;
 	thread m_vUpdateThread;
@@ -34,11 +36,17 @@ private:
 	string m_sTitle;
 	Scene* m_pCurrentScene;
 
+	double m_dCurrentFrame;
+	double m_dDeltaTime;
+	double m_dLastFrame;
+
 	AutoResetEvent m_vUpdateStart;
 	AutoResetEvent m_vUpdateComplete;
 
 	// Inherited via IEngine
 	virtual TEngine::IScene * CreateScene() override;
 	virtual void Destroy(TEngine::IScene * pScene) override;
+
+	virtual float GetDeltaTime() override;
 
 };

@@ -53,7 +53,7 @@ void Engine::RenderingInternalRoutine()
 	{
 		try// per ora usiamo un produttore-consumatore
 		{
-			cout << "--------Start New Frame--------" << endl;
+			Debug::Log("--------Start New Frame--------");
 			
 			/* Render here */
 			glClear(GL_COLOR_BUFFER_BIT);
@@ -66,9 +66,11 @@ void Engine::RenderingInternalRoutine()
 			//signal to update thread to start
 			m_vUpdateStart.Set();
 			//glFlush();
-			cout << "rendering" << endl;
+			Debug::Log("rendering");
 			//wait for update complete
 			m_vUpdateComplete.WaitOne();
+
+			UpdateDeltaTime();
 		}
 		catch (const std::exception& exc)
 		{
@@ -135,5 +137,17 @@ TEngine::IScene* Engine::CreateScene()
 void Engine::Destroy(TEngine::IScene * pScene)
 {
 	delete pScene;
+}
+
+double Engine::GetDeltaTime()
+{
+	return m_dDeltaTime;
+}
+
+void Engine::UpdateDeltaTime()
+{
+	m_dCurrentFrame = glfwGetTime();
+	m_dDeltaTime = m_dCurrentFrame - m_dLastFrame;
+	m_dLastFrame = m_dCurrentFrame;
 }
 
