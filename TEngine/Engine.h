@@ -7,7 +7,10 @@
 #include "EngineException.h"
 #include "AutoResetEvent.h"
 
+//using namespace TEngine;
+
 class Scene;
+class IScene;
 class Logger;
 
 class Engine final : public TEngine::IEngine
@@ -19,8 +22,10 @@ public:
 	virtual void Stop() override;
 	virtual int GetWidth() override;
 	virtual int GetHeight() override;
+
 	virtual string GetTitle() override;
-	
+	virtual void SetCurrentScene(TEngine::IScene* pScene);	
+	virtual void GetWindowSize(int * pWidth, int * pHeight) override;
 
 private:
 	virtual ~Engine();
@@ -32,6 +37,7 @@ private:
 	thread m_vUpdateThread;
 	GLFWwindow* m_pWindow;
 	static void OnWindowClosing(GLFWwindow* pWindow);
+	static void OnWindowResize(GLFWwindow* pWindow, int iWidth, int iHeight);
 	int m_iWidth;
 	int m_iHeight;
 	string m_sTitle;
@@ -53,4 +59,7 @@ private:
 	virtual double GetDeltaTime() override;
 	virtual void Log(const string& message) override;
 
+
+	// Inherited via IEngine
+	virtual TEngine::IScene * GetCurrentScene() override;
 };

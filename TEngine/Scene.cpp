@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "Scene.h"
 #include "Entity.h"
+#include "Engine.h"
 
 
-Scene::Scene()
+Scene::Scene(Engine* engine)
 {
+	m_pEngine = engine;
 }
 
 
@@ -85,5 +87,5 @@ void Scene::ParallelPostUpdate()
 
 void Scene::Render()
 {
-
+	//glViewport(0, 0, m_pEngine->GetWidth(), m_pEngine->GetHeight());
 }

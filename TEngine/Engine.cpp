@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Engine.h"
-#include "Scene.h"
+#include "Scene2D.h"
+#include "TEngine.h"
 #include "Logger.h"
 
 
@@ -9,7 +10,9 @@ Engine::Engine(int iWidth, int iHeight, const string& sTitle, TEngine::RenderSys
 	m_iWidth = iWidth;
 	m_iHeight = iHeight;
 	m_sTitle = sTitle;
-	m_pCurrentScene = new Scene(); //TODO: getter - setter - ciclo di vita
+	//m_pCurrentScene = new Scene2D(this); //TODO: getter - setter - ciclo di vita
+	m_pCurrentScene = dynamic_cast<Scene*>(CreateScene());
+	//SetCurrentScene(CreateScene());
 	m_pLogger = make_unique<Logger>();
 }
 
@@ -50,12 +53,15 @@ void Engine::RenderingInternalRoutine()
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	glfwSetWindowCloseCallback(m_pWindow, OnWindowClosing);
+	glfwSetWindowSizeCallback(m_pWindow, OnWindowResize);
+
+	m_pCurrentScene->Init();
 
 	while (!glfwWindowShouldClose(m_pWindow))
 	{
 		try// per ora usiamo un produttore-consumatore
 		{
-			Log("--------Start New Frame--------");
+			//Log("--------Start New Frame--------");
 			
 			//signal to update thread to start
 			m_vUpdateStart.Set();
@@ -64,8 +70,9 @@ void Engine::RenderingInternalRoutine()
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			//glFlush();
-			Log("rendering");
+			//Log("rendering");
 			m_pCurrentScene->Render();
+			
 
 			glBegin(GL_QUADS);           // Each set of 4 vertices form a quad
 			glColor3f(1.0f, 0.0f, 0.0f); // Red
@@ -104,7 +111,7 @@ void Engine::UpdateInternalRoutine()
 	{
 		m_vUpdateStart.WaitOne();
 
-		cout << "updating" << endl;
+		//cout << "updating" << endl;
 		m_pCurrentScene->DeferredRemoveEntities();
 		m_pCurrentScene->DeferredAddEntities();
 		//Time::Update();
@@ -145,7 +152,7 @@ void Engine::OnWindowClosing(GLFWwindow* pWindow)
 
 TEngine::IScene* Engine::CreateScene()
 {
-	return new Scene();
+	return new Scene2D(this);
 }
 
 void Engine::Destroy(TEngine::IScene * pScene)
@@ -170,3 +177,25 @@ void Engine::Log(const string& message)
 	m_pLogger->Log(message);
 }
 
+TEngine::IScene * Engine::GetCurrentScene()
+{
+	return m_pCurrentScene;
+}
+
+void Engine::GetWindowSize(int* pWidth, int* pHeight)
+{
+	glfwGetWindowSize(m_pWindow, pWidth, pHeight);
+}
+
+void Engine::SetCurrentScene(TEngine::IScene* pScene)
+{
+	m_pCurrentScene = dynamic_cast<Scene* > (pScene);
+	m_pCurrentScene->Init();
+}
+
+void Engine::OnWindowResize(GLFWwindow* pWindow, int iWidth, int iHeight)
+{
+	fprintf(stdout, "Window resized\n");
+	TEngine::TEngineFactory::GetEngine()->GetCurrentScene()->Init();
+	//m_pCurrentScene->Init();
+}

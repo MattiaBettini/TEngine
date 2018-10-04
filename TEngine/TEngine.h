@@ -36,6 +36,7 @@ namespace TEngine
 	public:
 		virtual ~IScene() {};
 		virtual IEntity* CreateEntity() = 0;
+		virtual void Init() = 0;
 		virtual void Destroy(IEntity* pEntity) = 0;
 	};
 
@@ -46,10 +47,13 @@ namespace TEngine
 		virtual void Run() = 0;
 		virtual void Stop() = 0;
 		virtual IScene* CreateScene() = 0;
+		virtual void SetCurrentScene(IScene* pScene) = 0;
+		virtual TEngine::IScene* GetCurrentScene() = 0;
 		virtual void Destroy(IScene* pScene) = 0;
 
 		virtual int GetWidth() = 0;
 		virtual int GetHeight() = 0;
+		virtual void GetWindowSize(int* iWidth, int* iHeight) = 0;
 		virtual string GetTitle() = 0;
 		virtual double GetDeltaTime() = 0;
 		virtual void Log(const string& message) = 0;
@@ -60,7 +64,8 @@ namespace TEngine
 		//friend class Engine;
 
 	public:
-		static IEngine* GetEngine(int iWidth, int iHeight, const string& wTitle, RenderSystem eRenderSubSystem);
+		static void CreateEngine(int iWidth, int iHeight, const string& wTitle, RenderSystem eRenderSubSystem);
+		static IEngine* GetEngine();
 		static void ReleaseEngine();
 
 	private:

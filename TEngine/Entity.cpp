@@ -7,6 +7,11 @@ Entity::Entity(Scene* scene)
 
 }
 
+Entity::Entity()
+{
+
+}
+
 Entity::~Entity()
 {
 }

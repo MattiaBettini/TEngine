@@ -8,6 +8,7 @@ class Entity : public TEngine::IEntity
 	friend class Scene;
 
 public:
+	Entity();
 	Entity(Scene* scene);
 	virtual ~Entity();
 
