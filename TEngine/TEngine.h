@@ -35,8 +35,7 @@ namespace TEngine
 	{
 	public:
 		virtual ~IScene() {};
-		virtual IEntity* CreateEntity() = 0;
-		virtual void Init() = 0;
+		virtual IEntity* CreateEntity() = 0;		
 		virtual void Destroy(IEntity* pEntity) = 0;
 	};
 
@@ -56,7 +55,6 @@ namespace TEngine
 		virtual void GetWindowSize(int* iWidth, int* iHeight) = 0;
 		virtual string GetTitle() = 0;
 		virtual double GetDeltaTime() = 0;
-		virtual void Log(const string& message) = 0;
 	};
 
 	class TEngineAPI TEngineFactory

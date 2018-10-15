@@ -2,18 +2,17 @@
 #include "Engine.h"
 #include "Scene2D.h"
 #include "TEngine.h"
-#include "Logger.h"
-
+#include "MessageSetWindowSize.h"
 
 Engine::Engine(int iWidth, int iHeight, const string& sTitle, TEngine::RenderSystem eSystem)
 {
 	m_iWidth = iWidth;
 	m_iHeight = iHeight;
 	m_sTitle = sTitle;
-	//m_pCurrentScene = new Scene2D(this); //TODO: getter - setter - ciclo di vita
+
 	m_pCurrentScene = dynamic_cast<Scene*>(CreateScene());
-	//SetCurrentScene(CreateScene());
-	m_pLogger = make_unique<Logger>();
+	m_pCurrentRenderMessages = &m_vQueue1;
+	m_pCurrentUpdateMessages = &m_vQueue2;
 }
 
 Engine::~Engine()
@@ -63,6 +62,11 @@ void Engine::RenderingInternalRoutine()
 		{
 			//Log("--------Start New Frame--------");
 			
+			auto pTmp				 = m_pCurrentRenderMessages;
+			m_pCurrentRenderMessages = m_pCurrentUpdateMessages;
+			m_pCurrentUpdateMessages = pTmp;
+
+
 			//signal to update thread to start
 			m_vUpdateStart.Set();
 
@@ -172,11 +176,6 @@ void Engine::UpdateDeltaTime()
 	m_dLastFrame = m_dCurrentFrame;
 }
 
-void Engine::Log(const string& message)
-{
-	m_pLogger->Log(message);
-}
-
 TEngine::IScene * Engine::GetCurrentScene()
 {
 	return m_pCurrentScene;
@@ -187,6 +186,12 @@ void Engine::GetWindowSize(int* pWidth, int* pHeight)
 	glfwGetWindowSize(m_pWindow, pWidth, pHeight);
 }
 
+//Called by update thread
+void Engine::RegisterRenderer(IMessage* pMessage)
+{
+	m_pCurrentUpdateMessages->push(pMessage);
+}
+
 void Engine::SetCurrentScene(TEngine::IScene* pScene)
 {
 	m_pCurrentScene = dynamic_cast<Scene* > (pScene);
@@ -195,7 +200,6 @@ void Engine::SetCurrentScene(TEngine::IScene* pScene)
 
 void Engine::OnWindowResize(GLFWwindow* pWindow, int iWidth, int iHeight)
 {
-	fprintf(stdout, "Window resized\n");
-	TEngine::TEngineFactory::GetEngine()->GetCurrentScene()->Init();
-	//m_pCurrentScene->Init();
+	MessageSetWindowSize* x = MessageSetWindowSize::Get();
+	
 }

@@ -8,14 +8,14 @@ public:
 	ConcurrentQueue() {};
 	~ConcurrentQueue() {};
 
-	void Enqueue(T item)
+	void Enqueue(T* item)
 	{
 		Lock();
 		elements.push(item);
 		Unlock();
 	}
 
-	bool Dequeue(T& out)
+	bool Dequeue(T* out)
 	{
 		Lock();
 		bool res = false;
@@ -37,5 +37,5 @@ public:
 	}
 
 private:
-	std::queue<T> elements;
+	std::queue<T*> elements;
 };

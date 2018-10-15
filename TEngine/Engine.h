@@ -12,6 +12,7 @@
 class Scene;
 class IScene;
 class Logger;
+class IMessage;
 
 class Engine final : public TEngine::IEngine
 {
@@ -25,7 +26,10 @@ public:
 
 	virtual string GetTitle() override;
 	virtual void SetCurrentScene(TEngine::IScene* pScene);	
+	virtual TEngine::IScene* GetCurrentScene() override;
 	virtual void GetWindowSize(int * pWidth, int * pHeight) override;
+
+	void RegisterRenderer(IMessage* pMessage);
 
 private:
 	virtual ~Engine();
@@ -47,8 +51,6 @@ private:
 	double m_dDeltaTime;
 	double m_dLastFrame;
 
-	unique_ptr<Logger> m_pLogger;
-
 	AutoResetEvent m_vUpdateStart;
 	AutoResetEvent m_vUpdateComplete;
 
@@ -57,9 +59,11 @@ private:
 	virtual void Destroy(TEngine::IScene * pScene) override;
 
 	virtual double GetDeltaTime() override;
-	virtual void Log(const string& message) override;
+
+	queue<IMessage*> m_vQueue1;
+	queue<IMessage*> m_vQueue2;
+	queue<IMessage*>* m_pCurrentRenderMessages;
+	queue<IMessage*>* m_pCurrentUpdateMessages;
 
 
-	// Inherited via IEngine
-	virtual TEngine::IScene * GetCurrentScene() override;
 };
